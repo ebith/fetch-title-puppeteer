@@ -1,0 +1,22 @@
+{
+  "name": "fetch-title-puppeteer",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "ebith",
+  "license": "MIT",
+  "scripts": {
+    "download-dockerfile": "wget https://raw.githubusercontent.com/ebidel/try-puppeteer/c4e6b44ad7d9ab261e05f6b3f136260e2e3ac809/backend/Dockerfile -O Dockerfile",
+    "start": "node index.js",
+    "build": "docker build -t fetch-title-puppeteer .",
+    "dev": "docker kill fetch-title-puppeteer; docker run -i --rm -p 8080:80 --name fetch-title-puppeteer fetch-title-puppeteer node -e \"`cat index.js`\""
+  },
+  "devDependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.15.5",
+    "now": "^8.3.8"
+  },
+  "now": {
+    "type": "docker",
+    "alias": "fetch-title"
+  }
+}
