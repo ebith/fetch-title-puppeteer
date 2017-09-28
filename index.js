@@ -14,18 +14,20 @@ const bodyParser = require('body-parser');
 
     const page = await browser.newPage();
     await page.setRequestInterceptionEnabled(true);
-    page.on('request', request => {
-      if (request.resourceType === 'Image')
+    page.on('request', (request) => {
+      if (/Stylesheet|Image|Media|Font/i.test(request.resourceType)) {
         request.abort();
-      else
+      } else {
         request.continue();
+      }
     });
     await page.goto(request.body.url);
     const title = await page.title();
+    const url = await page.url();
     page.close();
 
     response.json({
-      url: request.body.url,
+      url: url,
       title: title,
     });
   });
