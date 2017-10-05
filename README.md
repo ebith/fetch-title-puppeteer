@@ -10,5 +10,5 @@ curl -X POST https://fetch-title.now.sh/ -H 'Content-Type:application/json' -d '
 ```sh
 yarn global add now
 yarn run download-dockerfile
-now
+yarn run deploy
 ```

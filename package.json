@@ -8,18 +8,24 @@
     "download-dockerfile": "wget https://raw.githubusercontent.com/ebidel/try-puppeteer/c4e6b44ad7d9ab261e05f6b3f136260e2e3ac809/backend/Dockerfile -O Dockerfile",
     "start": "node index.js",
     "build": "docker build -t fetch-title-puppeteer .",
-    "dev": "docker kill fetch-title-puppeteer; docker run -i --rm -p 8080:8080 --name fetch-title-puppeteer fetch-title-puppeteer node -e \"`cat index.js`\""
+    "dev": "docker kill fetch-title-puppeteer; docker run -i --rm -p 8080:8080 --name fetch-title-puppeteer fetch-title-puppeteer node -e \"`cat index.js`\"",
+    "deploy": "now --public && now alias && yarn run set-scale && yarn run remove-previous",
+    "set-scale": "now ls | grep 'fetch-title' | awk 'NR==2{print $1}' | xargs -I {} now scale {} 1",
+    "remove-previous": "if [ `now ls | grep 'fetch-title' | wc -l` -gt 2 ];then  now ls | grep 'fetch-title' | awk 'END{print $1}' | xargs -I {} now rm -y {}; fi"
   },
   "dependencies": {
     "body-parser": "^1.18.2",
     "express": "^4.15.5"
   },
   "devDependencies": {
-    "now": "^8.3.8",
+    "now": "^8.3.9",
     "popsicle": "^9.1.0"
   },
   "now": {
     "type": "docker",
-    "alias": "fetch-title"
+    "alias": "fetch-title",
+    "env": {
+      "NODE_ENV": "production"
+    }
   }
 }
