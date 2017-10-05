@@ -26,10 +26,12 @@ const bodyParser = require('body-parser');
     const url = await page.url();
     page.close();
 
-    response.json({
+    const body = {
       url: url,
       title: title,
-    });
+    }
+    console.log(body);
+    response.json(body);
   });
 
   app.listen(8080);
