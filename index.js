@@ -8,7 +8,11 @@ const bodyParser = require('body-parser');
   const app = express();
   app.use(bodyParser.json());
 
-  app.post('/',async (request, response) => {
+  app.get('/', (request, response) => {
+    response.send('Usage: curl -X POST https://fetch-title.now.sh/ -H \'Content-Type:application/json\' -d \'{url: https://example.com/}\'');
+  });
+
+  app.post('/', async (request, response) => {
     if (request.headers['content-type'] && !request.headers['content-type'].includes('application/json')) { return response.sendStatus(406); }
     if (!request.body.url) { return response.sendStatus(400); }
 
