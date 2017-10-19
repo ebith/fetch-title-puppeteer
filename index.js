@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
   app.use(bodyParser.json());
 
   app.get('/', (request, response) => {
-    response.send('Usage: curl -X POST https://fetch-title.now.sh/ -H \'Content-Type:application/json\' -d \'{url: https://example.com/}\'');
+    response.send('Usage: curl -X POST https://fetch-title.now.sh/ -H \'Content-Type:application/json\' -d \'{"url": "https://example.com/"}\'');
   });
 
   app.post('/', async (request, response) => {
