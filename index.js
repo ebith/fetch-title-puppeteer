@@ -25,7 +25,9 @@ const bodyParser = require('body-parser');
         request.continue();
       }
     });
-    await page.goto(request.body.url);
+    await page.goto(request.body.url).catch((error) => {
+      console.log(error.message);
+    });
     const title = await page.title();
     const url = await page.url();
     page.close();
