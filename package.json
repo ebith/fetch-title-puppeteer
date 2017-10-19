@@ -9,7 +9,7 @@
     "start": "node index.js",
     "build": "docker build -t fetch-title-puppeteer .",
     "dev": "docker kill fetch-title-puppeteer; docker run -i --rm -p 8080:8080 --name fetch-title-puppeteer fetch-title-puppeteer node -e \"`cat index.js`\"",
-    "deploy": "now --public && now alias && yarn run set-scale && yarn run remove-previous",
+    "deploy": "now --public && now alias && yarn run remove-previous && yarn run set-scale",
     "set-scale": "now ls | grep 'fetch-title' | awk 'NR==2{print $1}' | xargs -I {} now scale {} 1",
     "remove-previous": "if [ `now ls | grep 'fetch-title' | wc -l` -gt 2 ];then  now ls | grep 'fetch-title' | awk 'END{print $1}' | xargs -I {} now rm -y {}; fi"
   },
@@ -19,7 +19,8 @@
   },
   "devDependencies": {
     "now": "^8.3.9",
-    "popsicle": "^9.1.0"
+    "popsicle": "^9.1.0",
+    "puppeteer": "^0.11.0"
   },
   "now": {
     "type": "docker",
