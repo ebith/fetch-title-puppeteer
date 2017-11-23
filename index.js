@@ -37,7 +37,7 @@ const bodyParser = require('body-parser');
       title: title,
     }
     console.log(body);
-    if (body.url === 'about:blank' || /^\s+$/.test(body.title)) { return response.sendStatus(404); }
+    if (body.url === 'about:blank' || /^(|\s+)$/.test(body.title)) { return response.sendStatus(404); }
     response.json(body);
   });
 
